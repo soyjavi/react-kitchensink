@@ -11,10 +11,6 @@ LikeButton = React.createClass
   componentWillReceiveProps: (next_props) ->
     console.log "07-lifecycle -> componentWillReceiveProps -> ", next_props
 
-  shouldComponentUpdate: (next_props, next_states) ->
-    console.log "07-lifecycle -> shouldComponentUpdate -> ", next_props, next_states
-    return true 
-
   componentWillUpdate: (next_props, next_states) ->
     console.log "07-lifecycle -> componentWillUpdate -> ", next_props, next_states
 
@@ -23,6 +19,10 @@ LikeButton = React.createClass
 
   componentWillUnmount: ->
     console.log "07-lifecycle -> componentWillUnmount"
+
+  shouldComponentUpdate: (next_props, next_states) ->
+    console.log "07-lifecycle -> shouldComponentUpdate -> ", next_props, next_states
+    return true
 
   getInitialState: ->
     liked: false

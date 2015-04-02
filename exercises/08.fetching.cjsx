@@ -34,11 +34,17 @@ AnimalsList = React.createClass
           }
         </ul>
         <a href="#reset" onClick={@handleResetClick}>Reset</a>
+        <a href="#reset" onClick={@handlePushClick}>Push</a>
       </div>
 
   handleResetClick: (event) ->
     event.preventDefault()
     @setState animals: []
+
+  handlePushClick: (event) ->
+    event.preventDefault()
+    @state.animals.push id: 5, animal: 'cat', name: 'Dexter'
+    @setState @state.animals
 
   handleFetchClick: (event) ->
     event.preventDefault()

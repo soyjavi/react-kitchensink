@@ -13,12 +13,13 @@ Likes = React.createClass
 LikesListWrapper = React.createClass
   render: ->
     <ul>
-      { this.props.children }
+      { @props.children }
+      <div></div>
     </ul>
 
 # Child Component
 LikeListItem = React.createClass
   render: ->
-    <li>{this.props.text}</li>
+    <li>{@props.text}</li>
 
 React.render <Likes />, document.getElementById('05-parent')

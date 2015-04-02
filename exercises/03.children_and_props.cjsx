@@ -18,8 +18,11 @@ LikeListItem = React.createClass
     description: 'N/A'
 
   render: ->
-    <li className={@props.className} >
+    <li className={@props.className} onClick={@onClick}>
       {@props.text} - {@props.description}
     </li>
+
+  onClick: ->
+    console.log "03.children_and_props -> ", @props
 
 React.render <LikeList />, document.getElementById('03-children')

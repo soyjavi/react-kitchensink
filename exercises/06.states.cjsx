@@ -12,7 +12,7 @@ LikeComponent = React.createClass
 
     <div>
       <p>Do you like fish sticks?</p>
-      <p>Response: I {@state.response || '_____'} fishsticks.</p>
+      <p>Response: I {@state.response or '_____'} fishsticks.</p>
       <a onClick={@handleLike} style={style.like}>I like it.</a>
       <a onClick={@handleDislike} style={style.dislike}>I dislike it.</a>
     </div>
