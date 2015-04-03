@@ -1,13 +1,14 @@
 {
-  "name"            : "react.kitchensink",
-  "version"         : "0.04.02",
-  "description"     : "...labs with React",
-  "homepage"        : "http://soyjavi.com",
-  "author"          : "Javi Jimenez",
+  "name"              : "react.kitchensink",
+  "version"           : "0.04.02",
+  "description"       : "...labs with React",
+  "homepage"          : "http://soyjavi.com",
+  "author"            : "Javi Jimenez",
   "dependencies": {
-    "coffee-script" : "*"
+    "coffee-script"   : "*"
   },
-  "devDependencies" : {
+  "devDependencies"   : {
+    "director"        : "*",
     "gulp"            : "*",
     "gulp-cjsx"       : "*",
     "gulp-concat"     : "*",

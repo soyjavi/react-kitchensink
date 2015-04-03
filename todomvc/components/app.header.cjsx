@@ -12,7 +12,6 @@ App.Header = React.createClass
       new App.Entity name: el.value.trim()
       el.value = ""
 
-
   # -- Render
   render: ->
     <header className="header">

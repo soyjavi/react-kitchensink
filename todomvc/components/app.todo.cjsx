@@ -9,7 +9,6 @@ App.Todo = React.createClass
     completed : @props.todo.completed
     editing   : false
 
-
   # -- Events
   onToggle: (event) ->
     @props.todo.completed = not @props.todo.completed
@@ -29,7 +28,6 @@ App.Todo = React.createClass
 
   onSubmit: (event) ->
     @props.todo.name = @refs.field.getDOMNode().value
-
 
   # -- Render
   render: ->

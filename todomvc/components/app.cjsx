@@ -6,23 +6,22 @@ App.TodoMVC = React.createClass
 
   # -- States & Properties
   getInitialState: ->
-    todos: []
-
+    todos   : []
+    context : "find"
 
   # -- Lifecycle
   componentDidMount: ->
-    App.Entity.observe (state) =>
-      console.log "[OBSERVE.#{state.type}]"
-      @setState todos: App.Entity.find()
-
-    new App.Entity name: "Task nº#{index}" for index in [1..5]
-
+    App.Entity.observe (state) => @setState todos: App.Entity.find()
+    router = Router
+      '/'          : @setState.bind @, context: "find"
+      '/active'    : @setState.bind @, context: "uncompleted"
+      '/completed' : @setState.bind @, context: "completed"
+    router.init '/'
 
   # -- Events
   onToggleTodos: (event) ->
     todo.completed = event.target.checked for todo in App.Entity.find()
     @setState todos: App.Entity.find()
-
 
   # -- Render
   render: ->
@@ -33,11 +32,11 @@ App.TodoMVC = React.createClass
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
         {
-          <App.Todo key={todo.uid} todo={todo} /> for todo in App.Entity.find()
+          <App.Todo key={todo.uid} todo={todo} /> for todo in App.Entity[@state.context]()
         }
         </ul>
       </section>
-      <App.Footer />
+      <App.Footer context={@state.context} />
     </div>
 
 React.render <App.TodoMVC />, document.getElementsByClassName("todoapp")[0]
