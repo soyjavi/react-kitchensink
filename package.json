@@ -8,14 +8,16 @@
     "coffee-script" : "*"
   },
   "devDependencies" : {
-    "gulp"        : "*",
-    "gulp-cjsx"   : "*",
-    "gulp-concat" : "*",
-    "gulp-connect": "*",
-    "gulp-flatten": "*",
-    "gulp-header" : "*",
-    "gulp-uglify" : "*",
-    "gulp-util"   : "*",
-    "gulp-yml"    : "*"
+    "gulp"            : "*",
+    "gulp-cjsx"       : "*",
+    "gulp-concat"     : "*",
+    "gulp-connect"    : "*",
+    "gulp-flatten"    : "*",
+    "gulp-header"     : "*",
+    "gulp-uglify"     : "*",
+    "gulp-util"       : "*",
+    "gulp-yml"        : "*",
+    "todomvc-common"  : "*",
+    "todomvc-app-css" : "*"
   }
 }

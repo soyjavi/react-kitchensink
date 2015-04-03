@@ -11,8 +11,11 @@ pkg     = require "./package.json"
 
 # -- FILES ---------------------------------------------------------------------
 path =
-  build : "./build"
-  cjsx  : "exercises/*.cjsx"
+  build     :   "./build"
+  exercises :   "exercises/*.cjsx"
+  todomvc   : [ "todomvc/entities/*.coffee"
+                "todomvc/components/app.*.cjsx"
+                "todomvc/components/app.cjsx"]
 
 banner = [
   "/**"
@@ -31,16 +34,24 @@ gulp.task "webserver", ->
     port      : 8000
     livereload: true
 
-gulp.task "cjsx", ->
-  gulp.src path.cjsx
-    # .pipe concat "site.coffee"
+gulp.task "exercises", ->
+  gulp.src path.exercises
+    .pipe cjsx().on "error", gutil.log
+    .pipe gulp.dest path.build
+    .pipe uglify mangle: true
+    .pipe connect.reload()
+
+gulp.task "todomvc", ->
+  gulp.src path.todomvc
+    .pipe concat "todomvc.cjsx"
     .pipe cjsx().on "error", gutil.log
     .pipe gulp.dest path.build
     # .pipe uglify mangle: true
     .pipe connect.reload()
 
-gulp.task "init", ["cjsx"]
+gulp.task "init", ["exercises", "todomvc"]
 
 gulp.task "default", ->
   gulp.run ["webserver"]
-  gulp.watch path.cjsx, ["cjsx"]
+  gulp.watch path.exercises, ["exercises"]
+  gulp.watch path.todomvc, ["todomvc"]
