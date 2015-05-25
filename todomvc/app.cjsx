@@ -20,6 +20,7 @@ App = React.createClass
       '/'          : @setState.bind @, context: "find"
       '/active'    : @setState.bind @, context: "uncompleted"
       '/completed' : @setState.bind @, context: "completed"
+    SPARouter.path ""
 
   # -- Events
   onToggleTodos: (event) ->
