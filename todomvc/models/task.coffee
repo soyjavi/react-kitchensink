@@ -1,8 +1,4 @@
-"use strict"
-
-App = App or {}
-
-class App.Entity extends Hamsa
+module.exports = class Task extends Hamsa
 
   @define
     name         : type: String

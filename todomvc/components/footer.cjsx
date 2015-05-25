@@ -1,8 +1,6 @@
-"use strict"
+Task = require "../models/task"
 
-App = App or {}
-
-App.Footer = React.createClass
+module.exports = React.createClass
 
   # -- States & Properties
   getInitialState: ->
@@ -10,13 +8,13 @@ App.Footer = React.createClass
 
   # -- Lifecycle
   componentDidMount: ->
-    App.Entity.observe (state) =>
-      @setState uncompleted: App.Entity.uncompleted().length
+    Task.observe (state) =>
+      @setState uncompleted: Task.uncompleted().length
 
   # -- Events
   onClearCompleted: (event) ->
     event.preventDefault()
-    todo.destroy() for todo in App.Entity.completed()
+    todo.destroy() for todo in Task.completed()
 
   # -- Render
   render: ->

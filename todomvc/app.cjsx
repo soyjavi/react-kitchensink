@@ -1,8 +1,12 @@
 "use strict"
 
-App = App or {}
+SPARouter = require "spa-router"
+Header  = require "./components/header"
+Todo    = require "./components/todo"
+Footer  = require "./components/footer"
+Task    = require "./models/task"
 
-App.TodoMVC = React.createClass
+App = React.createClass
 
   # -- States & Properties
   getInitialState: ->
@@ -11,32 +15,31 @@ App.TodoMVC = React.createClass
 
   # -- Lifecycle
   componentDidMount: ->
-    App.Entity.observe (state) => @setState todos: App.Entity.find()
-    router = Router
+    Task.observe (state) => @setState todos: Task.find()
+    SPARouter.listen
       '/'          : @setState.bind @, context: "find"
       '/active'    : @setState.bind @, context: "uncompleted"
       '/completed' : @setState.bind @, context: "completed"
-    router.init '/'
 
   # -- Events
   onToggleTodos: (event) ->
-    todo.completed = event.target.checked for todo in App.Entity.find()
-    @setState todos: App.Entity.find()
+    todo.completed = event.target.checked for todo in Task.find()
+    @setState todos: Task.find()
 
   # -- Render
   render: ->
     <div>
-      <App.Header />
+      <Header />
       <section className="main">
         <input className="toggle-all" type="checkbox" onClick={@onToggleTodos} />
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
         {
-          <App.Todo key={todo.uid} todo={todo} /> for todo in App.Entity[@state.context]()
+          <Todo key={todo.uid} todo={todo} /> for todo in Task[@state.context]()
         }
         </ul>
       </section>
-      <App.Footer context={@state.context} />
+      <Footer context={@state.context} />
     </div>
 
-React.render <App.TodoMVC />, document.getElementsByClassName("todoapp")[0]
+React.render <App />, document.getElementsByClassName("todoapp")[0]

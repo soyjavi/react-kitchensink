@@ -1,22 +1,30 @@
 "use strict"
 
 # -- DEPENDENCIES --------------------------------------------------------------
-gulp    = require "gulp"
-cjsx    = require "gulp-cjsx"
-concat  = require "gulp-concat"
-connect = require 'gulp-connect'
-gutil   = require "gulp-util"
-uglify  = require "gulp-uglify"
-pkg     = require "./package.json"
-
+gulp          = require "gulp"
+cjsx          = require "gulp-cjsx"
+concat        = require "gulp-concat"
+connect       = require 'gulp-connect'
+gutil         = require "gulp-util"
+header        = require "gulp-header"
+uglify        = require "gulp-uglify"
+pkg           = require "./package.json"
+browserify    = require "browserify"
+source        = require "vinyl-source-stream"
 # -- FILES ---------------------------------------------------------------------
 path =
-  build     :   "./build"
-  exercises :   "exercises/*.cjsx"
-  todomvc   : [ "todomvc/entities/*.coffee"
-                "todomvc/components/app.*.cjsx"
-                "todomvc/components/app.cjsx"]
-
+  build       : "./build"
+  exercises   : "exercises/*.cjsx"
+  todomvc     : [ "todomvc/**/*.cjsx"
+                  "todomvc/**/*.coffee"]
+  material_ui : [ "material-ui/**/*.cjsx"
+                  "material-ui/**/*.coffee"]
+# -- BROWSERIFY ----------------------------------------------------------------
+bundle_todomvc = browserify "./todomvc/app.cjsx", extensions: [".cjsx", ".coffee"]
+bundle_todomvc.transform require "coffee-reactify"
+bundle_material_ui = browserify "./material-ui/app.cjsx", extensions: [".cjsx", ".coffee"]
+bundle_material_ui.transform require "coffee-reactify"
+# -- COPYRIGHT -----------------------------------------------------------------
 banner = [
   "/**"
   " * <%= pkg.name %> - <%= pkg.description %>"
@@ -27,9 +35,8 @@ banner = [
   " */"
   ""
 ].join("\n")
-
 # -- TASKS ---------------------------------------------------------------------
-gulp.task "webserver", ->
+gulp.task "server", ->
   connect.server
     port      : 8000
     livereload: true
@@ -41,17 +48,28 @@ gulp.task "exercises", ->
     .pipe uglify mangle: true
     .pipe connect.reload()
 
-gulp.task "todomvc", ->
-  gulp.src path.todomvc
-    .pipe concat "todomvc.cjsx"
-    .pipe cjsx().on "error", gutil.log
-    .pipe gulp.dest path.build
+gulp.task "material-ui", ->
+  bundle_material_ui.bundle()
+    .on "error", gutil.log.bind(gutil, "Browserify Error")
+    .pipe source "material-ui.js"
     # .pipe uglify mangle: true
+    .pipe header banner, pkg: pkg
+    .pipe gulp.dest path.build
     .pipe connect.reload()
 
-gulp.task "init", ["exercises", "todomvc"]
+gulp.task "todomvc", ->
+  bundle_todomvc.bundle()
+    .on "error", gutil.log.bind(gutil, "Browserify Error")
+    .pipe source "todomvc.js"
+    # .pipe uglify mangle: true
+    .pipe header banner, pkg: pkg
+    .pipe gulp.dest path.build
+    .pipe connect.reload()
+
+gulp.task "init", ["exercises", "material-ui", "todomvc"]
 
 gulp.task "default", ->
-  gulp.run ["webserver"]
+  gulp.run ["server"]
   gulp.watch path.exercises, ["exercises"]
   gulp.watch path.todomvc, ["todomvc"]
+  gulp.watch path.material_ui, ["material-ui"]

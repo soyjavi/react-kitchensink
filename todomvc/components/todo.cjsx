@@ -1,8 +1,4 @@
-"use strict"
-
-App = App or {}
-
-App.Todo = React.createClass
+module.exports = React.createClass
 
   getInitialState: ->
     value     : @props.todo.name

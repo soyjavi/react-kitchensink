@@ -1,15 +1,14 @@
-"use strict"
 
-App = App or {}
+Task = require "../models/task"
 
-App.Header = React.createClass
+module.exports = React.createClass
 
   # -- Events
   onKeyDown: (event) ->
     if event.keyCode is 13
       event.preventDefault()
       el = @refs.input.getDOMNode()
-      new App.Entity name: el.value.trim()
+      new Task name: el.value.trim()
       el.value = ""
 
   # -- Render
