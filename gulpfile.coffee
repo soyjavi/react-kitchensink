@@ -7,6 +7,8 @@ concat        = require "gulp-concat"
 connect       = require 'gulp-connect'
 gutil         = require "gulp-util"
 header        = require "gulp-header"
+stylus        = require "gulp-stylus"
+less          = require "gulp-less"
 uglify        = require "gulp-uglify"
 pkg           = require "./package.json"
 browserify    = require "browserify"
@@ -19,6 +21,8 @@ path =
                   "todomvc/**/*.coffee"]
   material_ui : [ "material-ui/**/*.cjsx"
                   "material-ui/**/*.coffee"]
+  style       : [ "material-ui/styles/theme.less"]
+
 # -- BROWSERIFY ----------------------------------------------------------------
 bundle_todomvc = browserify "./todomvc/app.cjsx", extensions: [".cjsx", ".coffee"]
 bundle_todomvc.transform require "coffee-reactify"
@@ -57,6 +61,17 @@ gulp.task "material-ui", ->
     .pipe gulp.dest path.build
     .pipe connect.reload()
 
+gulp.task "material-ui-style", ->
+  gulp.src path.style
+    .pipe concat "material-ui.less"
+    .pipe less()
+    # .pipe stylus
+    #   compress: true
+    #   errors  : true
+    .pipe header banner, pkg: pkg
+    .pipe gulp.dest path.build
+    .pipe connect.reload()
+
 gulp.task "todomvc", ->
   bundle_todomvc.bundle()
     .on "error", gutil.log.bind(gutil, "Browserify Error")
@@ -66,10 +81,11 @@ gulp.task "todomvc", ->
     .pipe gulp.dest path.build
     .pipe connect.reload()
 
-gulp.task "init", ["exercises", "material-ui", "todomvc"]
+gulp.task "init", ["exercises", "todomvc", "material-ui", "material-ui-style"]
 
 gulp.task "default", ->
   gulp.run ["server"]
   gulp.watch path.exercises, ["exercises"]
   gulp.watch path.todomvc, ["todomvc"]
   gulp.watch path.material_ui, ["material-ui"]
+  gulp.watch path.style, ["material-ui-style"]

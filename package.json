@@ -1,34 +1,37 @@
 {
-  "name"                      : "react.kitchensink",
-  "version"                   : "0.5.24",
-  "description"               : "...labs with React",
-  "homepage"                  : "http://soyjavi.com",
-  "author"                    : "Javi Jimenez",
+  "name": "react.kitchensink",
+  "version": "0.5.24",
+  "description": "...labs with React",
+  "homepage": "http://soyjavi.com",
+  "author": "Javi Jimenez",
   "dependencies": {
-    "coffee-script"           : "*"
+    "coffee-script": "*"
   },
-  "devDependencies"           : {
-    "browserify"              : "^10.0.0",
-    "coffee-reactify"         : "^3.0.0",
-    "gulp"                    : "*",
-    "gulp-cjsx"               : "*",
-    "gulp-concat"             : "*",
-    "gulp-connect"            : "*",
-    "gulp-flatten"            : "*",
-    "gulp-header"             : "*",
-    "gulp-uglify"             : "*",
-    "gulp-util"               : "*",
-    "gulp-yml"                : "*",
-    "hamsa"                   : "*",
-    "material-ui"             : "*",
-    "react"                   : "*",
-    "react-tap-event-plugin"  : "*",
-    "spa-router"              : "*",
-    "todomvc-common"          : "*",
-    "todomvc-app-css"         : "*",
-    "vinyl-source-stream"     : "^1.1.0"
+  "devDependencies": {
+    "browserify": "^10.0.0",
+    "coffee-reactify": "^3.0.0",
+    "gulp": "*",
+    "gulp-cjsx": "*",
+    "gulp-concat": "*",
+    "gulp-connect": "*",
+    "gulp-flatten": "*",
+    "gulp-header": "*",
+    "gulp-less": "^3.0.3",
+    "gulp-stylus": "*",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "gulp-yml": "*",
+    "hamsa": "*",
+    "material-ui": ">=0.8",
+    "material-ui-stylus": "^0.5.0",
+    "react": ">=0.13",
+    "react-tap-event-plugin": "^0.1.3",
+    "spa-router": "*",
+    "todomvc-app-css": "*",
+    "todomvc-common": "*",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "start"               : "gulp"
+    "start": "gulp"
   }
 }
