@@ -18,7 +18,7 @@ App = React.createClass
     Task.observe (state) => @setState todos: Task.find()
     SPARouter.listen
       '/'          : @setState.bind @, context: "find"
-      '/active'    : @setState.bind @, context: "uncompleted"
+      '/active'    : @setState.bind @, context: "active"
       '/completed' : @setState.bind @, context: "completed"
     SPARouter.path ""
 
