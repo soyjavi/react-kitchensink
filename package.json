@@ -22,13 +22,9 @@
     "gulp-util": "*",
     "gulp-yml": "*",
     "hamsa": "*",
-    "material-ui": ">=0.8",
-    "material-ui-stylus": "^0.5.0",
     "react": ">=0.13",
     "react-tap-event-plugin": "^0.1.3",
     "spa-router": "*",
-    "todomvc-app-css": "*",
-    "todomvc-common": "*",
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
